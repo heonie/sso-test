@@ -33,7 +33,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:8000"],
+    origin: ["http://localhost:8000"], // allowed origin for auth requests
     credentials: true,
   })
 );
@@ -44,7 +44,6 @@ app.listen(PORT, () => {
 });
 
 app.post("/auth", (req, res) => {
-  // TODO: Filter the requester by origin
   try {
     const { email, password } = req.body;
     const matchedUser = users.find(
