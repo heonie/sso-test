@@ -29,4 +29,4 @@ cat jwtRS256.key.pub
 
 ## TODO
 
-- Login ID/PW의 입력도 Account Server에서 호스팅하는 웹페이지에서만 입력받고 redirection 한다.
+- Login ID/PW의 입력도 Account Server에서 호스팅하는 웹페이지에서만 입력받고 redirection 한다. SAML, OIDC 등.
