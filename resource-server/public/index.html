@@ -1,0 +1,103 @@
+<div class="logged-in" style="display: none">
+  <span class="username"></span>님 환영합니다
+  <button class="btn-logout">로그아웃</button>
+
+  나의 서비스 정보: <span class="useritems"></span>
+</div>
+<div class="not-logged-in" style="display: none">
+  <input
+    type="email"
+    class="email"
+    placeholder="이메일"
+    value="heonie@gmail.com"
+  />
+  <input type="password" class="password" placeholder="비밀번호" value="1234" />
+  <button class="btn-login">로그인</button>
+</div>
+
+<script>
+  const ACCOUNT_ENDPOINT = "http://localhost:3000";
+  const RESOURCE_ENDPOINT = "http://localhost:8000";
+
+  function isLoggedIn() {
+    return !!localStorage.getItem("token");
+  }
+
+  // from account server
+  async function getUserInfo() {
+    const cachedToken = localStorage.getItem("token");
+    if (!cachedToken) {
+      return null;
+    }
+    const response = await fetch(`${ACCOUNT_ENDPOINT}/me`, {
+      headers: {
+        Authorization: "Bearer " + cachedToken,
+      },
+    });
+    if (response.status == 200) {
+      return await response.json();
+    } else {
+      return null;
+    }
+  }
+
+  // from resource server
+  async function getUserItems() {
+    const cachedToken = localStorage.getItem("token");
+    if (!cachedToken) {
+      return null;
+    }
+    const response = await fetch(`${RESOURCE_ENDPOINT}/items`, {
+      headers: {
+        Authorization: "Bearer " + cachedToken,
+      },
+    });
+    if (response.status == 200) {
+      return await response.json();
+    } else {
+      return null;
+    }
+  }
+
+  function logIn() {
+    const email = document.querySelector(".email").value;
+    const password = document.querySelector(".password").value;
+    fetch(`${ACCOUNT_ENDPOINT}/auth`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        localStorage.setItem("token", data.token);
+        location.reload();
+      })
+      .catch((error) => {
+        alert("Invalid email & password");
+      });
+  }
+  function logOut() {
+    localStorage.removeItem("token");
+    location.reload();
+  }
+
+  document.querySelector(".btn-logout").addEventListener("click", logOut);
+  document.querySelector(".btn-login").addEventListener("click", logIn);
+
+  async function init() {
+    if (isLoggedIn()) {
+      document.querySelector(".logged-in").style.display = "";
+      const userInfo = await getUserInfo();
+      const userItems = await getUserItems();
+
+      document.querySelector(".username").innerText = userInfo.email;
+      document.querySelector(".useritems").innerText = userItems;
+    } else {
+      document.querySelector(".not-logged-in").style.display = "";
+    }
+  }
+
+  init();
+</script>
