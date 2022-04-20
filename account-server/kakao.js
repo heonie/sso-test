@@ -54,8 +54,9 @@ router.get("/redirect", async (req, res) => {
         `<script>window.opener.postMessage({ method: 'setToken', args: ["${token}"] }, '*'); window.close();</script>`
       );
     } else {
+      const kakaoNickName = userInfo.kakao_account.profile.nickname; // "nickname"은 카카오개발자설정에서 필수항목으로 지정되있음
       res.send(
-        `<script>alert('해당하는 사용자가 없습니다'); window.close();</script>`
+        `<script>alert('"${kakaoNickName}" 카카오 계정에 해당하는 사용자가 없습니다'); window.close();</script>`
       );
     }
   } catch (ex) {
