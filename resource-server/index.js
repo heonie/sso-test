@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import jwt from "jsonwebtoken";
 import fs from "fs";
+import cors from "cors";
 
 const PORT = 8000;
 const ACCOUNT_SERVER = "http://localhost:3000";
@@ -16,6 +17,12 @@ app.listen(PORT, () => {
   console.log(`Service Server is listening at port ${PORT}`);
 });
 
+app.use(
+  cors({
+    origin: ["http://localhost:8000", "https://4361-61-255-188-98.jp.ngrok.io"], // allowed origin for auth requests
+    credentials: true,
+  })
+);
 app.use(express.static(path.join(__dirname, "public")));
 
 const resource = [

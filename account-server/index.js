@@ -33,7 +33,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:8000"], // allowed origin for auth requests
+    origin: ["http://localhost:8000", "https://4361-61-255-188-98.jp.ngrok.io"], // allowed origin for auth requests
     credentials: true,
   })
 );
@@ -43,8 +43,12 @@ app.listen(PORT, () => {
   console.log(`Account Server is listening at port ${PORT}`);
 });
 
+app.get("/", (req, res) => {
+  res.status(403).send();
+});
 app.post("/auth", (req, res) => {
   try {
+    console.log("POST /auth");
     const { email, password } = req.body;
     const matchedUser = users.find(
       (user) => user.email == email && user.password == password
@@ -67,6 +71,7 @@ app.post("/auth", (req, res) => {
 
 const getUID = (token) => {
   const verified = jwt.verify(token, JWT_PUBLIC_KEY, {
+    expiresIn: "1y",
     algorithm: ["RS256"],
   });
   console.log("verified", verified);
