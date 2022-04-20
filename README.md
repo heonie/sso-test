@@ -29,4 +29,6 @@ cat jwtRS256.key.pub
 
 ## TODO
 
-- Login ID/PW의 입력도 Account Server에서 호스팅하는 웹페이지에서만 입력받고 redirection 한다. SAML, OIDC 등 검토 필요.
+- Login ID/PW의 입력도 Account Server에서 호스팅하는 웹페이지에서만 입력받고 redirection 한다.
+- SAML, OIDC 등의 기존 프로토콜에 비추어 보안상 문제가 없는지 검토 필요.
+- 3rd party 앱에서 리소스를 가져가도록 하기 위한 OAuth 지원 필요.
