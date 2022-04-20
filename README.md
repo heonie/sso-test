@@ -1,4 +1,4 @@
-# SSO test
+# Simple SSO test
 
 JWT 기반의 API보안을 위한 구조 설계를 위한 프로토타입.
 
@@ -29,4 +29,4 @@ cat jwtRS256.key.pub
 
 ## TODO
 
-- Login ID/PW의 입력도 Account Server에서 호스팅하는 웹페이지에서만 입력받고 redirection 한다. SAML, OIDC 등.
+- Login ID/PW의 입력도 Account Server에서 호스팅하는 웹페이지에서만 입력받고 redirection 한다. SAML, OIDC 등 검토 필요.
