@@ -1,33 +1,12 @@
 import express from "express";
-import path from "path";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import jwt from "jsonwebtoken";
-import fs from "fs";
 import cors from "cors";
+import kakaoRouter from "./kakao";
+import users from "./users";
+import { jwtIssue, jwtVerify } from "./token";
 
 const PORT = 3000;
-const JWT_PRIVATE_KEY = fs.readFileSync(
-  path.join(__dirname, "../jwtRS256.key"),
-  "utf8"
-);
-const JWT_PUBLIC_KEY = fs.readFileSync(
-  path.join(__dirname, "../jwtRS256.key.pub"),
-  "utf8"
-);
-
-const users = [
-  {
-    uid: "heonie",
-    email: "heonie@gmail.com",
-    password: "1234",
-  },
-  {
-    uid: "heonie7",
-    email: "heonie7@gmail.com",
-    password: "1234",
-  },
-];
 
 const app = express();
 
@@ -57,11 +36,7 @@ app.post("/auth", (req, res) => {
     const uid = matchedUser.uid;
     const payload = { uid };
     console.log("payload", payload);
-    const token = jwt.sign(payload, JWT_PRIVATE_KEY, {
-      issuer: "ndotlight corp.",
-      expiresIn: "1y",
-      algorithm: "RS256",
-    });
+    const token = jwtIssue(uid);
     res.send({ token });
   } catch (ex) {
     console.log(ex);
@@ -70,10 +45,7 @@ app.post("/auth", (req, res) => {
 });
 
 const getUID = (token) => {
-  const verified = jwt.verify(token, JWT_PUBLIC_KEY, {
-    expiresIn: "1y",
-    algorithm: ["RS256"],
-  });
+  const verified = jwtVerify(token);
   console.log("verified", verified);
   const { uid } = verified;
   return uid || null;
@@ -96,3 +68,5 @@ app.get("/me", (req, res) => {
     res.status(401).send();
   }
 });
+
+app.use("/kakao", kakaoRouter);
