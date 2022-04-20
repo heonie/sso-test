@@ -8,7 +8,6 @@ const router = express.Router();
 const KAKAO_AUTHAPI_ENDPOINT = "https://kauth.kakao.com";
 const KAKAO_API_ENDPOINT = "https://kapi.kakao.com";
 const CLIENT_ID = "921b66aa109d8b4c86f52c0fc2f9c71d";
-const CLIENT_SECRET = "hbEGazWaRriSQwzflHyFCkJwiwqyNcLw";
 
 router.get("/redirect", async (req, res) => {
   console.log("KAKAO", "redirect", req.query);
