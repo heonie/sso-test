@@ -7,6 +7,11 @@ JWT 기반의 API보안을 위한 구조 설계를 위한 프로토타입.
 - 사용자의 JWT 발급을 위한 Account server와, 해당 JWT를 이용하여 사용자를 Verify 하고자 하는 복수개의 Resouce server를 분리시키는 구조의 테스트를 위함.
 - Resouce Server로의 API요청시 요청받은 JWT가 유효한지를 매번 Account Server에 Request한다면, Account Server 부하가 너무 크고, Resource Server의 성능저하가 일어날것임. 따라서 Resouce Server가 직접 JWT가 유효한지를 확인 할 수 있어야 한다.
 
+## Setup and Run
+
+- `account-server`와 `resource-server` 둘 다 `npm install` 실행.
+- `npm run start`로 각각 서버 실행후, `http://localhost:8000`으로 리소스서버 로그인화면 접속.
+
 ## Sharing JWT Secret VS Using RSA key-pair
 
 Resource Server가 요청받은 JWT가 유효한지를 verify하기 위해서는
