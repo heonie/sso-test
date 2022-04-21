@@ -32,6 +32,11 @@ cat jwtRS256.key
 cat jwtRS256.key.pub
 ```
 
+## Social Login
+
+- 카카오, 네이버 소셜 로그인 프로로타입 포함
+- User data field(`account-server/users.js` 참조)에 `kakao_uid`와 `naver_uid`를 회원가입시 또는 소셜 로그인 연동시 가지고 있음을 전제. 소셜 연동 완료후 각 포털의 사용자 정보를 조회하여 해당 포털의 uid를 기반으로 매칭 및 로그인 처리한다.
+
 ## TODO
 
 - Login ID/PW의 입력도 Account Server에서 호스팅하는 웹페이지에서만 입력받고 redirection 한다.

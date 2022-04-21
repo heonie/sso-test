@@ -19,7 +19,7 @@ app.listen(PORT, () => {
 
 app.use(
   cors({
-    origin: ["http://localhost:8000", "https://4361-61-255-188-98.jp.ngrok.io"], // allowed origin for auth requests
+    origin: ["http://localhost:8000", "https://4361-61-255-188-98.jp.ngrok.io"], // allowed origin for requests
     credentials: true,
   })
 );
