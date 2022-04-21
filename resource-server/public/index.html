@@ -13,17 +13,8 @@
   />
   <input type="password" class="password" placeholder="비밀번호" value="1234" />
   <button class="btn-login">로그인</button>
-  <input
-    type="button"
-    class="kakao"
-    style="
-      background: url('kakao_login_medium_narrow.png') no-repeat;
-      cursor: pointer;
-      width: 183px;
-      height: 45px;
-      border: none;
-    "
-  />
+  <img src="kakao_login_medium_narrow.png" class="kakao" height="40px" />
+  <img src="btnG_축약형.png" class="naver" height="40px" />
 </div>
 
 <script>
@@ -112,10 +103,18 @@
       "top=10, left=10, width=1120, height=980, status=no, menubar=no, toolbar=no, resizable=no"
     );
   }
+  function naverLogin() {
+    const popup = window.open(
+      "http://localhost:3000/naver/auth",
+      "naverauthpopup",
+      "top=10, left=10, width=1120, height=980, status=no, menubar=no, toolbar=no, resizable=no"
+    );
+  }
 
   document.querySelector(".btn-logout").addEventListener("click", logOut);
   document.querySelector(".btn-login").addEventListener("click", logIn);
   document.querySelector(".kakao").addEventListener("click", kakaoLogin);
+  document.querySelector(".naver").addEventListener("click", naverLogin);
 
   async function init() {
     if (isLoggedIn()) {

@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import cors from "cors";
 import kakaoRouter from "./kakao";
+import naverRouter from "./naver";
 import users from "./users";
 import { jwtIssue, jwtVerify } from "./token";
 
@@ -70,3 +71,4 @@ app.get("/me", (req, res) => {
 });
 
 app.use("/kakao", kakaoRouter);
+app.use("/naver", naverRouter);
